@@ -13,7 +13,7 @@
     --text: #1d1d1f;
     --text-sec: #4b4b4e;
     --glass: rgba(255, 255, 255, 0.7);
-    --border: rgba(0, 0, 0, 0.05);
+    --border: rgba(0, 0, 0, 0.08);
     --accent: #1d1d1f;
     --shape1: #e0e7ff;
     --shape2: #fae8ff;
@@ -24,15 +24,15 @@
     --bg: #0a0a0c;
     --text: #f5f5f7;
     --text-sec: #a1a1a6;
-    --glass: rgba(20, 20, 25, 0.8);
+    --glass: rgba(20, 20, 25, 0.85);
     --border: rgba(255, 255, 255, 0.1);
-    --accent: #f5f5f7;
+    --accent: #6366f1;
     --shape1: #1e1b4b;
     --shape2: #4c1d95;
     --shape3: #064e3b;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.5s ease, color 0.3s ease; }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: all 0.4s ease; }
 
   body {
     background: var(--bg);
@@ -41,7 +41,7 @@
     min-height: 100vh;
   }
 
-  /* --- Moving Shapes Background --- */
+  /* Moving Background Shapes */
  .bg-canvas {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -53,20 +53,20 @@
  .shape {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.6;
-    animation: move 20s infinite alternate;
+    opacity: 0.5;
+    animation: move 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
   }
 
- .s1 { width: 400px; height: 400px; background: var(--shape1); top: -10%; left: -10%; }
- .s2 { width: 500px; height: 500px; background: var(--shape2); bottom: -10%; right: -10%; animation-duration: 25s; }
- .s3 { width: 300px; height: 300px; background: var(--shape3); top: 40%; left: 30%; animation-duration: 30s; }
+ .s1 { width: 450px; height: 450px; background: var(--shape1); top: -5%; left: -5%; }
+ .s2 { width: 550px; height: 550px; background: var(--shape2); bottom: -10%; right: -5%; animation-duration: 25s; }
+ .s3 { width: 350px; height: 350px; background: var(--shape3); top: 30%; left: 25%; animation-duration: 15s; }
 
   @keyframes move {
-    from { transform: translate(0, 0) scale(1); }
-    to { transform: translate(100px, 50px) scale(1.2); }
+    from { transform: translate(0, 0) scale(1) rotate(0deg); }
+    to { transform: translate(150px, 100px) scale(1.3) rotate(45deg); }
   }
 
-  /* --- UI Elements --- */
+  /* Header */
  .legal-header {
     position: sticky;
     top: 0;
@@ -80,10 +80,10 @@
     z-index: 100;
   }
 
- .controls { display: flex; gap: 12px; align-items: center; }
+ .controls { display: flex; gap: 10px; }
 
  .icon-btn {
-    width: 45px; height: 45px;
+    width: 42px; height: 42px;
     border-radius: 12px;
     border: 1px solid var(--border);
     background: var(--glass);
@@ -91,59 +91,74 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 22px;
     color: var(--text);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   }
- .icon-btn:hover { background: var(--accent); color: var(--bg); transform: translateY(-2px); }
 
+ .icon-btn:hover { background: var(--text); color: var(--bg); transform: scale(1.05); }
+
+  /* Content Container */
  .legal-content {
-    max-width: 850px;
+    max-width: 800px;
     margin: 40px auto;
-    padding: 40px;
+    padding: 40px 30px;
     background: var(--glass);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     border: 1px solid var(--border);
     border-radius: 32px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-    z-index: 5;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.06);
     position: relative;
+    z-index: 10;
   }
 
- .legal-section { margin-bottom: 70px; }
+ .legal-section { margin-bottom: 60px; }
  .legal-section h3 {
-    font-size: 26px; font-weight: 700; margin-bottom: 20px;
+    font-size: 24px; font-weight: 700; margin-bottom: 20px;
     display: flex; align-items: center; gap: 12px;
   }
- .legal-section p { font-size: 17px; line-height: 1.8; color: var(--text-sec); margin-bottom: 18px; }
+ .legal-section p { font-size: 17px; line-height: 1.85; color: var(--text-sec); margin-bottom: 15px; }
  .legal-section b { color: var(--text); }
- .legal-section ul { margin-left: 20px; color: var(--text-sec); list-style: none; }
- .legal-section ul li::before { content: "→"; margin-right: 10px; color: var(--accent); font-weight: bold; }
- .legal-section ul li { margin-bottom: 12px; }
+ .legal-section ul { list-style: none; margin-left: 5px; }
+ .legal-section li { 
+    margin-bottom: 12px; padding-left: 25px; position: relative; color: var(--text-sec);
+    line-height: 1.6;
+  }
+ .legal-section li::before {
+    content: "\ead2"; font-family: 'Phosphor'; position: absolute; left: 0;
+    color: var(--text); font-weight: bold;
+  }
 
-  /* --- Music Player Drawer --- */
+  /* Music Drawer */
  .music-drawer {
     position: fixed;
-    right: -320px; top: 80px;
-    width: 300px;
+    right: -320px; top: 85px;
+    width: 280px;
     background: var(--glass);
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(35px);
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 20px;
     z-index: 1000;
-    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
   }
  .music-drawer.open { right: 20px; }
  .playlist { max-height: 300px; overflow-y: auto; margin-top: 15px; }
  .track {
-    padding: 10px; border-radius: 10px; cursor: pointer;
-    font-size: 14px; margin-bottom: 5px; display: flex; justify-content: space-between;
+    padding: 12px; border-radius: 14px; cursor: pointer;
+    font-size: 14px; margin-bottom: 8px; display: flex; justify-content: space-between;
+    background: rgba(0,0,0,0.03);
   }
- .track:hover,.track.active { background: var(--accent); color: var(--bg); }
+ .track:hover,.track.active { background: var(--text); color: var(--bg); }
 
- .player-ui { text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
- .track-name { font-weight: 700; font-size: 16px; margin: 10px 0; display: block; }
+ .player-info { text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+ .track-name { font-weight: 700; display: block; margin: 5px 0; }
+
+  @media (max-width: 600px) {
+   .legal-content { margin: 20px; padding: 25px; border-radius: 24px; }
+   .music-drawer { width: 260px; }
+  }
 </style>
 </head>
 <body data-theme="light">
@@ -155,111 +170,90 @@
   </div>
 
   <header class="legal-header">
-    <h2 style="font-weight: 800; letter-spacing: -1px;">Legal Info.</h2>
+    <h2 style="font-weight: 800; letter-spacing: -1px;">AniFlow. <span style="font-weight:400; opacity:0.5;">Legal</span></h2>
     <div class="controls">
-      <div class="icon-btn" onclick="toggleTheme()" title="Switch Light/Dark"><i class="ph ph-moon"></i></div>
-      <div class="icon-btn" onclick="toggleMusic()" title="Reading Music"><i class="ph ph-music-notes"></i></div>
-      <a href="#" class="icon-btn" style="text-decoration:none;"><i class="ph ph-house"></i></a>
+      <div class="icon-btn" onclick="toggleTheme()" id="themeBtn"><i class="ph-bold ph-moon"></i></div>
+      <div class="icon-btn" onclick="toggleMusic()"><i class="ph-bold ph-music-notes"></i></div>
+      <a href="index.html" class="icon-btn"><i class="ph-bold ph-house-line"></i></a>
     </div>
   </header>
 
   <div class="music-drawer" id="musicDrawer">
-    <div class="player-ui">
-      <span class="track-name" id="currentTrackName">Select a track...</span>
-      <div style="display:flex; justify-content:center; gap:20px; font-size: 24px;">
-        <i class="ph ph-play-pause" style="cursor:pointer;" onclick="togglePlay()"></i>
+    <div class="player-info">
+      <span class="track-name" id="currentTrack">Ready to read...</span>
+      <div style="font-size: 28px; margin-top: 10px;">
+        <i class="ph-fill ph-play-circle" id="playBtn" style="cursor:pointer;" onclick="togglePlay()"></i>
       </div>
     </div>
-    <div class="playlist" id="playlist">
-      </div>
+    <div class="playlist" id="playlist"></div>
   </div>
 
   <main class="legal-content">
     <div class="legal-section">
-      <h3><i class="ph ph-warning-octagon"></i> 1. General Disclaimer</h3>
-      <p>AniFlow ("the Site") operates strictly as a <b>"Mere Conduit"</b> and <b>"Information Location Tool"</b> under international digital service regulations, including Article 12 of the EU E-Commerce Directive and Section 512 of the DMCA.[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span) The Site functions exclusively as a passive intermediary, providing an automated indexing and search interface for content hosted by independent third parties.[span_2](start_span)[span_2](end_span)</p>
-      <p>The Site <b>does not host, stream, or store</b> media files on its own infrastructure.[span_3](start_span)[span_3](end_span) All video content is embedded from external sources over which AniFlow exercises no editorial control.[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span)</p>
+      <h3><i class="ph-fill ph-shield-check"></i> 1. Passive Conduit Disclaimer</h3>
+      <p>AniFlow operates strictly as an <b>automated information location tool</b>. We act as a passive intermediary (Mere Conduit) and do not initiate transmissions or modify the content accessed through our interface.</p>
+      <p>The Site <b>does not host, store, or upload</b> any media files on its own infrastructure. All video content is embedded from third-party hosts over which we exercise no editorial control.</p>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-copyright"></i> 2. Comprehensive DMCA Policy</h3>
-      <p>We strictly adhere to the Safe Harbor provisions of the <b>Digital Millennium Copyright Act (DMCA)</b>.[span_6](start_span)[span_6](end_span)[span_7](start_span)[span_7](end_span) Our "Notice and Action" protocol ensures prompt removal of infringing links upon receipt of a valid notification to <b>dmca@aniflow.site</b>.[span_8](start_span)[span_8](end_span)</p>
+      <h3><i class="ph-fill ph-copyright"></i> 2. DMCA & Notice-Action Policy</h3>
+      <p>We respect intellectual property rights and comply with the Digital Millennium Copyright Act. Valid takedown notices sent to <b>dmca@aniflow.site</b> will be processed within 24-48 hours.</p>
       <ul>
-        <li>Physical or electronic signature of the owner.</li>
-        <li>Identification of the copyrighted work.</li>
-        <li>Specific URLs of the material on our Site.</li>
-        <li>Statement of "good faith belief".</li>
+        <li>Identification of the copyrighted work infringed.</li>
+        <li>Specific URLs of the infringing material on our Site.</li>
+        <li>A statement of good faith belief that use is unauthorized.</li>
+        <li>Contact information for the rights holder.</li>
       </ul>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-arrow-u-up-left"></i> 3. DMCA Counter-Notification</h3>
-      <p>Users may file a Counter-Notification pursuant to 17 U.S.C. § 512(g)(3) if they believe content was removed in error.[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span) A valid counter-notice must include your signature, identification of the removed material, and a statement under penalty of perjury.[span_11](start_span)[span_11](end_span)</p>
-    </div>
-
-    <div class="legal-section">
-      <h3><i class="ph ph-shield-check"></i> 4. Broad Indemnification</h3>
-      <p>You agree to <b>indemnify and hold harmless</b> AniFlow from any claims, losses, or legal fees arising from your use of the Site or your violation of third-party rights, including copyright or privacy.</p>
-    </div>
-
-    <div class="legal-section">
-      <h3><i class="ph ph-prohibit"></i> 5. Prohibited Activities</h3>
-      <p>The following actions are strictly forbidden:</p>
+      <h3><i class="ph-fill ph-warning-diamond"></i> 3. Prohibited User Conduct</h3>
+      <p>By using AniFlow, you agree not to engage in the following restricted activities:</p>
       <ul>
-        <li>Systematic data extraction or scraping.</li>
-        <li>Bypassing security or DRM features.</li>
-        <li>Uploading malware or engaging in DDoS attacks.</li>
-        <li>Automated site manipulation (Drop Farming).</li>
+        <li>Automated scraping or data extraction of site metadata.</li>
+        <li>Bypassing site security measures or DRM features.</li>
+        <li>Uploading malicious software or engaging in DDoS attacks.</li>
+        <li>Attempting to manipulate site metrics via automated bots.</li>
       </ul>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-users-four"></i> 6. Youth Safety Policy</h3>
-      <p>AniFlow maintains a <b>zero-tolerance policy</b> regarding the safety of minors.[span_12](start_span)[span_12](end_span)[span_13](start_span)[span_13](end_span) Any content promoting exploitation will result in an immediate permanent ban and referral to the <b>NCMEC</b>.</p>
+      <h3><i class="ph-fill ph-users-four"></i> 4. Minor Protection & Safety</h3>
+      <p>We maintain a <b>zero-tolerance policy</b> for the safety of minors. Any content involving the exploitation or grooming of youth will result in an immediate permanent ban and a report to the <b>NCMEC</b>.</p>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-link"></i> 7. External Content Disclaimer</h3>
-      <p>Third-party links are <b>not monitored for safety</b>.[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span) Users acknowledge that accessing external hosts exposes them to risks like malware and phishing.[span_16](start_span)[span_16](end_span) You assume all risk associated with open network usage.[span_17](start_span)[span_17](end_span)</p>
+      <h3><i class="ph-fill ph-scales"></i> 5. Transformative Fair Use</h3>
+      <p>Usage of thumbnails, metadata, and brief snippets on this Site qualifies as <b>Transformative Fair Use</b> for the purposes of news reporting, commentary, and indexing.</p>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-scales"></i> 8. Fair Use Doctrine</h3>
-      <p>Use of thumbnails and metadata constitutes <b>Transformative Fair Use</b> under Section 107.[span_18](start_span)[span_18](end_span)[span_19](start_span)[span_19](end_span) Our use does not substitute for the original work or harm its market value.[span_20](start_span)[span_20](end_span)</p>
+      <h3><i class="ph-fill ph-link"></i> 6. Third-Party Risks</h3>
+      <p>External links to streaming hosts are provided for convenience. We are <b>not responsible</b> for the accuracy or safety of these sites. Users access them at their own risk regarding malware or tracking.</p>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-user-circle-gear"></i> 9. Account Security</h3>
-      <p>You are 100% responsible for your account credentials.[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span) AniFlow is not liable for losses caused by unauthorized access to your account.</p>
+      <h3><i class="ph-fill ph-gavel"></i> 7. Limitation of Liability</h3>
+      <p>AniFlow is provided <b>"AS IS"</b>. Our total aggregate liability for any claims is capped at <b>$100.00 USD</b>. We are not responsible for indirect or consequential damages.</p>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-hand-palm"></i> 10. Limitation of Liability</h3>
-      <p>AniFlow is provided <b>"AS IS"</b>.[span_23](start_span)[span_23](end_span) Our aggregate liability is capped at <b>$100.00 USD</b>. We are not liable for consequential or indirect damages.</p>
+      <h3><i class="ph-fill ph-cookie"></i> 8. Advertising & Tracking</h3>
+      <p>We use third-party ad networks that may track your activity. EU users may opt-in via our CMP, and California users may opt-out under CCPA regulations.</p>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-eye-slash"></i> 11. Cookie Disclosure</h3>
-      <p>We use third-party tracking for advertising.[span_24](start_span)[span_24](end_span)[span_25](start_span)[span_25](end_span) EU users must <b>opt-in</b> under GDPR; California users may <b>opt-out</b> under CCPA.[span_26](start_span)[span_26](end_span)</p>
+      <h3><i class="ph-fill ph-hand-fist"></i> 9. Arbitration Agreement</h3>
+      <p>Any disputes shall be resolved through binding <b>ICC Arbitration</b>. Users expressly waive their right to participate in any <b>Class Action</b> lawsuits.</p>
     </div>
 
     <div class="legal-section">
-      <h3><i class="ph ph-gavel"></i> 12. Binding Arbitration</h3>
-      <p>All disputes will be settled via <b>ICC Arbitration</b>. You waive the right to participate in <b>Class Action</b> lawsuits.</p>
+      <h3><i class="ph-fill ph-stack"></i> 10. Severability & Survival</h3>
+      <p>If any part of these terms is ruled invalid, the remainder remains in effect. Clauses regarding Indemnity and IP survive account termination.</p>
     </div>
 
-    <div class="legal-section">
-      <h3><i class="ph ph-article"></i> 13. Severability & Survival</h3>
-      <p>If any part of these terms is ruled invalid, the remaining sections stay in full force. Clauses regarding IP and Indemnity survive termination.</p>
-    </div>
-
-    <div class="legal-section">
-      <h3><i class="ph ph-cloud-slash"></i> 14. Force Majeure</h3>
-      <p>AniFlow is not liable for service failures caused by server outages, internet connectivity issues, or regulatory interventions.</p>
-    </div>
-
-    <footer style="text-align:center; padding-top:40px; border-top:1px solid var(--border);">
-      <p style="font-weight:700; font-size:14px; opacity:0.8;">LAST UPDATED: APRIL 17, 2026</p>
+    <footer style="text-align:center; padding-top:40px; opacity:0.6; border-top:1px solid var(--border);">
+      <p style="font-weight:700; font-size:14px;">UPDATED: APRIL 17, 2026</p>
     </footer>
   </main>
 
@@ -269,16 +263,19 @@
     // --- Theme Logic ---
     function toggleTheme() {
       const body = document.body;
-      const current = body.getAttribute('data-theme');
-      body.setAttribute('data-theme', current === 'light'? 'dark' : 'light');
+      const themeBtn = document.getElementById('themeBtn');
+      const isLight = body.getAttribute('data-theme') === 'light';
+      body.setAttribute('data-theme', isLight? 'dark' : 'light');
+      themeBtn.innerHTML = isLight? '<i class="ph-bold ph-sun"></i>' : '<i class="ph-bold ph-moon"></i>';
     }
 
-    // --- Music Logic ---
+    // --- Music System ---
     const tracks =;
 
     const player = document.getElementById('audioPlayer');
     const playlist = document.getElementById('playlist');
-    const trackLabel = document.getElementById('currentTrackName');
+    const trackLabel = document.getElementById('currentTrack');
+    const playBtn = document.getElementById('playBtn');
 
     tracks.forEach((t, i) => {
       const div = document.createElement('div');
@@ -294,10 +291,18 @@
       player.src = tracks[i].url;
       player.play();
       trackLabel.innerText = tracks[i].name;
+      playBtn.className = "ph-fill ph-pause-circle";
     }
 
     function togglePlay() {
-      if(player.paused) player.play(); else player.pause();
+      if(!player.src) { alert("Select a track from the list first!"); return; }
+      if(player.paused) {
+        player.play();
+        playBtn.className = "ph-fill ph-pause-circle";
+      } else {
+        player.pause();
+        playBtn.className = "ph-fill ph-play-circle";
+      }
     }
 
     function toggleMusic() {
@@ -308,4 +313,4 @@
 </html>
 
 ```
-         
+      
