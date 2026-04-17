@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Information | AniFlow</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+    * {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  :root {
+    --bg: #f5f5f7;
+    --text: #1d1d1f;
+    --text-sec: #6e6e73;
+    --glass: rgba(255, 255, 255, 0.6);
+    --border: rgba(0, 0, 0, 0.08);
+    --accent: #1d1d1f;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .legal-header {
+    position: sticky;
+    top: 0;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+  .legal-header h2 { font-size: 28px; font-weight: 700; }
+
+  .back-btn {
+    padding: 12px 24px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .back-btn:hover { opacity: 0.9; transform: translateX(-4px); }
+
+  .legal-content {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 24px 100px;
+  }
+
+  .legal-section {
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 0.8s forwards;
+  }
+  .legal-section:nth-child(1) { animation-delay: 0.1s; }
+  .legal-section:nth-child(2) { animation-delay: 0.2s; }
+  .legal-section:nth-child(3) { animation-delay: 0.3s; }
+  .legal-section:nth-child(4) { animation-delay: 0.4s; }
+  .legal-section:nth-child(5) { animation-delay: 0.5s; }
+  .legal-section:nth-child(6) { animation-delay: 0.6s; }
+  .legal-section:nth-child(7) { animation-delay: 0.7s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .legal-section h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .legal-section h3 i {
+    font-size: 32px;
+    padding: 14px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+  }
+  .legal-section p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--text-sec);
+    margin-bottom: 20px;
+  }
+  .legal-section ul {
+    margin-left: 24px;
+    color: var(--text-sec);
+    line-height: 1.9;
+  }
+  .legal-section ul li { margin-bottom: 12px; }
+</style>
+</head>
+<body>
+  <div class="legal-header">
+    <h2>Legal Information</h2>
+    <a href="index.html" class="back-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      Back to Home
+    </a>
+  </div>
+
+  <div class="legal-content">
+    <div class="legal-section">
+      <h3><i class="ph-fill ph-warning"></i>1. General Disclaimer</h3>
+      <p>AniFlow ("the Site") is an independent, unofficial news aggregation platform dedicated to providing information, updates, and commentary on anime, manga, light novels, and related Japanese media. The Site is not affiliated with, endorsed by, or sponsored by any anime production studio, manga publisher, licensing company, or rights holder including but not limited to MAPPA, Studio Pierrot, Shueisha, Kodansha, Crunchyroll, or Funimation.</p>
+      <p>All anime titles, character names, artwork, images, logos, trademarks, and copyrighted materials displayed on this Site are the exclusive intellectual property of their respective owners. We do not claim ownership, authorship, or proprietary rights over any third-party content.</p>
+      <p>AniFlow does not host, stream, distribute, or provide direct downloads of any copyrighted video content, full episodes, movies, or manga chapters. All news articles are compiled from publicly accessible sources for informational, educational, and editorial purposes only.</p>
+    </div>
+
+    <div class="legal-section">
+      <h3><i class="ph-fill ph-copyright"></i>2. DMCA Compliance & Copyright Policy</h3>
+      <p>We respect intellectual property rights and comply fully with the Digital Millennium Copyright Act of 1998. If you are a copyright owner or an agent authorized to act on behalf of one, and you believe that any content on AniFlow infringes upon your copyrights, you may submit a notification pursuant to DMCA to our designated agent at: <b>dmca@aniflow.site</b></p>
+      <p>To be effective, your DMCA notice must include the following:</p>
+      <ul>
+        <li>A physical or electronic signature of the copyright owner or authorized agent</li>
+        <li>Identification of the copyrighted work claimed to have been infringed</li>
+        <li>Identification of the material that is claimed to be infringing, including specific URL(s)</li>
+        <li>Your contact information: address, telephone number, and email</li>
+        <li>A statement that you have a good faith belief that use of the material is not authorized</li>
+        <li>A statement that the information is accurate, and under penalty of perjury, that you are authorized to act</li>
+      </ul>
+      <p>Upon receipt of a valid DMCA notice, we will investigate and remove or disable access to the allegedly infringing material within 24-48 hours. Counter-notifications may be submitted if you believe content was removed in error.</p>
+    </div>
+
+    <div class="legal-section">
+      <h3><i class="ph-fill ph-file-text"></i>3. Content & External Links Policy</h3>
+      <p>AniFlow functions solely as a news and information portal. We do not operate streaming servers, file hosting services, or torrent trackers. Any external links to third-party websites, streaming platforms, or download sources are provided strictly for user reference and convenience.</p>
+      <p>We have no control over, do not monitor, and assume no responsibility for the content, privacy policies, terms of service, or practices of any third-party websites. Inclusion of external links does not imply endorsement or affiliation. Users who choose to access third-party content do so entirely at their own discretion and risk.</p>
+      <p>We strongly advise all users to verify the legitimacy, legal status, and security of any external service before providing personal information or accessing content. AniFlow shall not be held liable for any damages, losses, or legal issues arising from user interaction with third-party sites.</p>
+    </div>
+
+    <div class="legal-section">
+      <h3><i class="ph-fill ph-scales"></i>4. Fair Use Doctrine</h3>
+      <p>All copyrighted material including but not limited to images, key visuals, character artwork, and title logos used on AniFlow qualifies as Fair Use under Section 107 of the U.S. Copyright Act (17 U.S.C. § 107). Our usage is limited to:</p>
+      <ul>
+        <li>News reporting and journalism</li>
+        <li>Commentary and criticism</li>
+        <li>Educational and informational purposes</li>
+        <li>Review and analysis</li>
+      </ul>
+      <p>We use only low-resolution, thumbnail-sized images necessary for identification and illustration. Our use does not substitute for the original work, does not affect the market value of copyrighted material, and is transformative in nature as part of news aggregation.</p>
+    </div>
+
+    <div class="legal-section">
+      <h3><i class="ph-fill ph-lock"></i>5. Privacy & Data Collection</h3>
+      <p>AniFlow is committed to user privacy and data minimization. Our technical infrastructure uses Supabase solely for anonymous view counts and like counters on news articles. No personally identifiable information is collected, stored, processed, or transmitted.</p>
+      <p>Specifically, we do NOT collect: names, email addresses, IP addresses, device fingerprints, location data, or browsing history. We do NOT use cookies, localStorage, or any tracking technologies for user profiling. We do NOT use Google Analytics, Facebook Pixel, or third-party advertising trackers.</p>
+      <p>All usage metrics are aggregated, anonymized, and cannot be traced to individual users. Your visit to AniFlow is private and untracked.</p>
+    </div>
+
+    <div class="legal-section">
+      <h3><i class="ph-fill ph-shield-warning"></i>6. Limitation of Liability</h3>
+      <p>Information provided on AniFlow is presented "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. We make no representations or warranties regarding the accuracy, completeness, timeliness, or reliability of any news content, summaries, or third-party information.</p>
+      <p>To the maximum extent permitted by law, AniFlow, its operators, contributors, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages including but not limited to loss of profits, data, or goodwill arising from: 1. Use or inability to use the Site 2. Reliance on any information provided 3. Errors, omissions, or inaccuracies in content 4. Unauthorized access to or alteration of transmissions.</p>
+      <p>By accessing and using AniFlow, you acknowledge that you have read, understood, and agree to be bound by these terms. If you do not agree with any part of these terms, you must immediately discontinue use of the Site.</p>
+    </div>
+
+    <div class="legal-section">
+      <h3><i class="ph-fill ph-gavel"></i>7. Governing Law & Changes</h3>
+      <p>These terms shall be governed by and construed in accordance with applicable international copyright law and fair use provisions. Any disputes shall be resolved through good faith communication before legal action.</p>
+      <p>AniFlow reserves the right to modify, amend, or update this Legal Information page at any time without prior notice. Continued use of the Site after changes constitutes acceptance of modified terms. Last updated: April 16, 2026.</p>
+    </div>
+  </div>
+</body>
+  </html>
