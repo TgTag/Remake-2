@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AniFlow | News Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+    * {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  :root {
+    --bg: #f5f5f7;
+    --text: #1d1d1f;
+    --text-sec: #6e6e73;
+    --glass: rgba(255, 255, 255, 0.6);
+    --glass-hover: rgba(255, 255, 255, 0.8);
+    --border: rgba(0, 0, 0, 0.08);
+    --accent: #1d1d1f;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background Shapes */
+  .bg-shapes {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    overflow: hidden;
+  }
+  .shape {
+    position: absolute;
+    background: linear-gradient(135deg, #e8e8ed, #ffffff);
+    transition: 1s;
+  }
+  .shape1 { width: 500px; height: 500px; top: -200px; left: -200px; }
+  .shape2 { width: 400px; height: 400px; bottom: -150px; right: -150px; }
+  .shape3 { width: 300px; height: 300px; top: 50%; left: 60%; opacity: 0.7; }
+  
+  .style-morph .shape {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: morph 15s ease-in-out infinite;
+  }
+  .style-orbs .shape {
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: float 20s ease-in-out infinite;
+  }
+  .style-grid .shape {
+    border-radius: 24px;
+    animation: pulse 10s ease-in-out infinite;
+  }
+  
+  @keyframes morph {
+    0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
+    50% { border-radius: 70% 30% 50% 30% / 30% 30% 70% 70%; transform: rotate(180deg) scale(1.1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50px, -50px) scale(1.2); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 100px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 60px;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo i { font-size: 28px; }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .icon-btn {
+    width: 48px;
+    height: 48px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    transition: 0.3s;
+  }
+  .icon-btn:hover { background: var(--glass-hover); transform: translateY(-2px); }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+  .hero p {
+    font-size: 18px;
+    color: var(--text-sec);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    padding: 18px 36px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .cta-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .cta-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+  
+  .cta-secondary {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .cta-secondary:hover { transform: translateY(-3px); background: var(--glass-hover); }
+
+  /* Banners */
+  .banner-section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    letter-spacing: -1px;
+  }
+
+  .banner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .banner {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  .banner:hover { transform: translateY(-8px); }
+  
+  .banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.4s;
+  }
+  .banner:hover img { transform: scale(1.05); }
+
+  .banner-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
+    color: #fff;
+  }
+  .banner-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .banner h3 { font-size: 20px; font-weight: 600; }
+
+  /* Disclaimer Bar - Fixed */
+  .disclaimer-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 12px 24px;
+    font-size: 13px;
+    color: var(--text-sec);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+  }
+  .disclaimer-bar p { margin: 0; }
+
+  .legal-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s;
+    text-decoration: none;
+  }
+  .legal-btn:hover { opacity: 0.9; transform: scale(1.05); }
+
+  /* Settings Panel - Fixed */
+  .settings-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: var(--glass);
+    backdrop-filter: blur(30px);
+    border-left: 1px solid var(--border);
+    z-index: 1000;
+    transition: right 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    padding: 28px;
+    overflow-y: auto;
+  }
+  .settings-panel.active { right: 0; }
+
+  .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  .settings-header h3 { font-size: 24px; font-weight: 700; }
+
+  .setting-group { margin-bottom: 32px; }
+  .setting-group h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-sec);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .setting-option {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .setting-option:hover { background: var(--glass-hover); transform: translateX(4px); }
+  .setting-option.active { border-color: var(--accent); }
+
+  .music-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .music-control i { font-size: 20px; }
+
+  @media (max-width: 768px) {
+    .disclaimer-bar { 
+      flex-direction: column; 
+      gap: 10px; 
+      left: 20px; 
+      right: 20px; 
+      transform: none;
+      text-align: center;
+    }
+    .settings-panel { width: 100%; right: -100%; }
+    .cta-group { flex-direction: column; }
+    .cta-btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body class="style-morph">
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="bg-shapes">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+  </div>
+
+  <!-- Settings Panel -->
+  <div class="settings-panel" id="settingsPanel">
+    <div class="settings-header">
+      <h3>Settings</h3>
+      <button class="icon-btn" onclick="toggleSettings()">
+        <i class="ph-bold ph-x"></i>
+      </button>
+    </div>
+
+    <div class="setting-group">
+      <h4>Background Music</h4>
+      <div class="setting-option" onclick="toggleMusic()">
+        <div class="music-control">
+          <i class="ph-fill ph-music-notes" id="musicIcon"></i>
+          <span id="musicStatus">Music: Off</span>
+        </div>
+        <i class="ph-bold ph-play" id="playIcon"></i>
+      </div>
+      <div class="setting-option" onclick="changeMusic('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3', 'music1')">
+        <span>🎵 Chill Lofi</span>
+        <i class="ph-bold ph-check" id="music1"></i>
+      </div>
+      <div class="setting-option" onclick="changeMusic('https://cdn.pixabay.com/audio/2022/08/03/audio_54a976a0c7.mp3', 'music2')">
+        <span>🎹 Ambient</span>
+        <i class="ph-bold ph-check" id="music2" style="display:none"></i>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <h4>Background Style</h4>
+      <div class="setting-option" onclick="changeBgStyle('style-morph', 'bg1')">
+        <span>🌊 Morph Blobs</span>
+        <i class="ph-bold ph-check" id="bg1"></i>
+      </div>
+      <div class="setting-option" onclick="changeBgStyle('style-orbs', 'bg2')">
+        <span>⚪ Floating Orbs</span>
+        <i class="ph-bold ph-check" id="bg2" style="display:none"></i>
+      </div>
+      <div class="setting-option" onclick="changeBgStyle('style-grid', 'bg3')">
+        <span>⬜ Pulse Grid</span>
+        <i class="ph-bold ph-check" id="bg3" style="display:none"></i>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <h4>More Coming Soon</h4>
+      <div class="setting-option" style="opacity:0.5; cursor:not-allowed">
+        <span>🎨 Custom Themes</span>
+        <i class="ph-bold ph-lock"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="ph-fill ph-tornado"></i>
+        AniFlow
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" onclick="toggleSettings()">
+          <i class="ph-fill ph-gear-six"></i>
+        </button>
+        <a href="https://t.me/yourchannel" target="_blank" class="icon-btn">
+          <i class="ph-fill ph-telegram-logo"></i>
+        </a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Your Daily Dose of<br>Anime Universe</h1>
+      <p>Lightning-fast updates on anime, manga, and movies. Clean UI, zero clutter. Everything you need, nothing you don't.</p>
+      
+      <div class="cta-group">
+        <a href="main.html" class="cta-btn cta-primary">
+          <i class="ph-fill ph-newspaper"></i>
+          Browse All News
+        </a>
+        <a href="https://t.me/yourchannel" target="_blank" class="cta-btn cta-secondary">
+          <i class="ph-fill ph-telegram-logo"></i>
+          Join Telegram
+        </a>
+      </div>
+    </section>
+
+    <section class="banner-section">
+      <h2>Trending This Week</h2>
+      <div class="banner-grid">
+        <div class="banner" onclick="window.location.href='main.html'">
+          <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&q=80" alt="Anime Banner">
+          <div class="banner-content">
+            <span class="banner-tag">ANIME</span>
+            <h3>Jujutsu Kaisen Season 3 Confirmed</h3>
+          </div>
+        </div>
+        
+        <div class="banner" onclick="window.location.href='main.html'">
+          <img src="https://images.unsplash.com/photo-1613376023733-0a73315d9b06?w=800&q=80" alt="Anime Banner">
+          <div class="banner-content">
+            <span class="banner-tag">MOVIE</span>
+            <h3>Chainsaw Man Reze Arc Movie Date</h3>
+          </div>
+        </div>
+        
+        <div class="banner" onclick="window.location.href='main.html'">
+          <img src="https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=800&q=80" alt="Anime Banner">
+          <div class="banner-content">
+            <span class="banner-tag">MANGA</span>
+            <h3>One Piece Final Saga Updates</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Chhota Disclaimer Bar - Ab naya page kholega -->
+  <div class="disclaimer-bar">
+    <p>© 2026 AniFlow. Unofficial news aggregator.</p>
+    <a href="disclaimer.html" class="legal-btn">
+      <i class="ph-fill ph-shield-check"></i>
+      View Legal Information
+    </a>
+  </div>
+
+<script>
+  // Music System - Fixed
+  const music = document.getElementById('bgMusic')
+  let musicPlaying = false
+  
+  document.body.addEventListener('click', () => {
+    if(!musicPlaying) {
+      music.volume = 0.3
+      music.play().then(() => {
+        musicPlaying = true
+        updateMusicUI()
+      }).catch(e => console.log('Autoplay blocked, click settings to start'))
+    }
+  }, { once: true })
+
+  function toggleMusic() {
+    if(musicPlaying) {
+      music.pause()
+      musicPlaying = false
+    } else {
+      music.volume = 0.3
+      music.play()
+      musicPlaying = true
+    }
+    updateMusicUI()
+  }
+
+  function changeMusic(url, checkId) {
+    music.src = url
+    if(musicPlaying) music.play()
+    document.querySelectorAll('[id^=music]').forEach(el => {
+      if(el.id.startsWith('music') && el.id !== 'musicIcon' && el.id !== 'musicStatus') {
+        el.style.display = 'none'
+      }
+    })
+    document.getElementById(checkId).style.display = 'block'
+  }
+
+  function updateMusicUI() {
+    document.getElementById('musicStatus').textContent = musicPlaying ? 'Music: On' : 'Music: Off'
+    document.getElementById('playIcon').className = musicPlaying ? 'ph-bold ph-pause' : 'ph-bold ph-play'
+    document.getElementById('musicIcon').style.color = musicPlaying ? 'var(--accent)' : 'var(--text-sec)'
+  }
+
+  // Settings Panel - Fixed
+  function toggleSettings() {
+    document.getElementById('settingsPanel').classList.toggle('active')
+  }
+
+  // Background Style Change - Fixed
+  function changeBgStyle(style, checkId) {
+    document.body.className = style
+    document.querySelectorAll('[id^=bg]').forEach(el => el.style.display = 'none')
+    document.getElementById(checkId).style.display = 'block'
+  }
+
+  // ESC key close
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') {
+      document.getElementById('settingsPanel').classList.remove('active')
+    }
+  })
+</script>
+</body>
+  </html>
